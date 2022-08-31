@@ -1,3 +1,2 @@
 #!/bin/bash
-ls -xamp
-ls -xamp
+ls -pamv
