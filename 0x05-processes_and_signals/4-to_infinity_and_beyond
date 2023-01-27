@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# infinitely prints to infinity and beyond with sleep 2 in between
+while true; do
+	echo "To infinity and beyond"
+	sleep 2
+done
