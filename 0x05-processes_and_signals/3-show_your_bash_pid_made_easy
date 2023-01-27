@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# finds processes with bash
+pgrep -l bash
