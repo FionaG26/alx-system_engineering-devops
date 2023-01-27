@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# displays list of files in directory after first dash
+for i in *;do
+	if [ "$i" != "*" ]
+	then
+		echo "$i" | cut -f2 -d "-" ;
+	fi
+done
