@@ -1,5 +1,5 @@
 #This puppet manifest configures private key ~/.ssh/school
-file { '/alx-system_engineering-devops/0x0B-ssh/2-ssh_config':
+file { '/alx-system_engineering-devops/0x0B-ssh/100-puppet_ssh_config.pp':
   ensure  => present,
   mode    => '0600',
   content => "
