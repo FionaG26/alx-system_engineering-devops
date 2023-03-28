@@ -1,33 +1,14 @@
 #!/usr/bin/env bash
-# Update package lists and install nginx
-sudo apt update
-sudo apt install nginx -y
 
-# Configure nginx to listen on port 80 and serve Hello World!
-sudo bash -c 'cat > /etc/nginx/sites-available/default <<EOF
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+# Update package index
+apt-get update
 
-    root /var/www/html;
-    index index.html;
+# Install Nginx
+apt-get install -y nginx
 
-    server_name _;
+# Configure Nginx
+echo "Hello World!" > /var/www/html/index.html
 
-    location / {
-        return 200 "Hello World!";
-    }
-}
-EOF'
-
-# Restart nginx
-sudo kill $(cat /var/run/nginx.pid)
-sudo /usr/sbin/nginx -g "daemon on;"
-
-# Verify that nginx is running and serving Hello World!
-if curl -s http://localhost | grep -q "Hello World!"; then
-    echo "Nginx is serving Hello World!"
-else
-    echo "Nginx is not serving Hello World!"
-fi
+# Restart Nginx
+/usr/sbin/service nginx restart
 
