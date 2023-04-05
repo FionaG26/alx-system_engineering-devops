@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Start Nginx if it is not running
+sudo systemctl start nginx
+
+# Check if Nginx is listening on port 80
+if ! sudo cat /etc/nginx/sites-enabled/default | grep -q "listen 80"
+then
+    # Configure Nginx to listen on port 80
+    sudo sed -i 's/listen\s*80;/listen 80 default_server;/g' /etc/nginx/sites-enabled/default
+    # Restart Nginx to apply the configuration
+    sudo systemctl restart nginx
+fi
+
+# Check if port 80 is allowed in the firewall
+if ! sudo ufw status | grep -q "80/tcp.*ALLOW"
+then
+    # Allow incoming traffic on port 80
+    sudo ufw allow 80/tcp
+fi
