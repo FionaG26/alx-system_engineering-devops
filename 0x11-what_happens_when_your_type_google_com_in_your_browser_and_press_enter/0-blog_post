@@ -1,1 +1,23 @@
 https://www.linkedin.com/pulse/web-infrastructure-design-fiona-githaiga-/?published=t
+
+What happens when you type https://www.google.com in your browser and press enter?
+
+As a software engineer, it’s important to understand how the web stack works on top of the internet. In this blog post, we’ll walk through the entire process that takes place when you type https://www.google.com in your browser and press Enter. We’ll cover DNS request, TCP/IP, firewall, HTTPS/SSL, load-balancer, web server, application server, and database.
+
+DNS Request The first step is the Domain Name System (DNS) request. When you type in a URL, your browser sends a request to a DNS server to find the IP address of the domain name. In our example, the DNS server will return the IP address for google.com, which is 172.217.5.78.
+
+TCP/IP The next step is establishing a connection using the Transmission Control Protocol/Internet Protocol (TCP/IP). This is the backbone of the internet, allowing data to be transmitted between devices. The TCP/IP connection is established between your computer and the Google server at the IP address returned by the DNS server.
+
+Firewall Once the TCP/IP connection is established, the next step is to check if any firewalls are blocking the connection. A firewall is a security system that monitors and controls incoming and outgoing traffic based on predetermined security rules. If there are any firewalls blocking the connection, the request will be denied, and the page won't load.
+
+HTTPS/SSL If the connection is not blocked by any firewall, the browser will initiate an HTTPS request to the server. HTTPS (Hyper Text Transfer Protocol Secure) is a secure version of HTTP (Hyper Text Transfer Protocol) that encrypts the data being transmitted. SSL (Secure Sockets Layer) is the protocol used to establish a secure connection between the browser and the server. The server will provide a digital certificate that verifies its identity and is used to encrypt and decrypt the data being transmitted.
+
+Load-Balancer If the server receives a large number of requests, it may use a load balancer to distribute the requests across multiple servers. A load balancer is a device that distributes network traffic across multiple servers to optimize resource usage and ensure high availability. The load balancer will select a server based on various criteria, such as server health, number of connections, and server response time.
+
+Web Server Once the request reaches the web server, it will process the request and send the response back to the browser. The web server is responsible for handling HTTP requests, processing server-side code (such as PHP, Ruby, or Python), and serving static content such as HTML, CSS, and JavaScript files.
+
+Application Server For more complex applications, an application server may be used to handle server-side processing. The application server provides an environment for running server-side code and interacts with a database to retrieve and store data. Examples of application servers include Apache Tomcat, JBoss, and GlassFish.
+
+Database The final step is interacting with the database to retrieve or store data. The application server interacts with the database using SQL (Structured Query Language) to retrieve and store data. The database can be a relational database (such as MySQL or PostgreSQL) or a NoSQL database (such as MongoDB or Cassandra).
+
+In conclusion, the process of typing https://www.google.com in your browser and pressing Enter involves multiple steps, from the DNS request to the database interaction. Understanding this process is essential for software engineers who want to develop web applications or work on the web stack.
