@@ -15,6 +15,6 @@ sed -i 's/user\s*nginx;/user nginx nginx;/g' /etc/nginx/nginx.conf
 service nginx restart
 
 # Verify that Nginx is running as nginx user and listening on port 8080
-ps auxff | grep ngin[x]
+ps auxff | grep 'nginx'
 nc -z 0 8080 ; echo $?
 
