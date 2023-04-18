@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # This script configures the container to run Nginx as the nginx user and listen on port 8080
+service nginx stop
 useradd nginx
 chown -R nginx:nginx /var/log/nginx
 chown -R nginx:nginx /var/cache/nginx
