@@ -5,16 +5,16 @@
 # Create nginx user
 useradd nginx
 
-# Change ownership of Nginx files
-chown -R nginx:nginx /etc/nginx /var/log/nginx /var/lib/nginx /var/www/html /run/nginx.pid
+# Change ownership of log directory
+chown -R nginx:nginx /var/log/nginx
 
-# Modify Nginx configuration file
-sed -i 's/user\s*nginx;/user nginx nginx;/g' /etc/nginx/nginx.conf
+# Change ownership of cache directory
+chown -R nginx:nginx /var/cache/nginx
 
-# Restart Nginx service
-service nginx restart
+# Modify nginx.conf to run as nginx user and listen on port 8080
+sed -i 's/^user\s\+.*$/user nginx;/' /etc/nginx/nginx.conf
+sed -i 's/^listen\s\+.*$/listen \*:8080 default_server;/' /etc/nginx/nginx.conf
 
-# Verify that Nginx is running as nginx user and listening on port 8080
-'pgrep nginx'
-nc -z 0 8080 ; echo $?
+# Start nginx service
+service nginx start
 
