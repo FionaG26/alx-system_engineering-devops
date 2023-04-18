@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 # This script configures the container to run Nginx as the nginx user and listen on port 8080
-service nginx stop
+
+# Stop the nginx service if it's already running
+systemctl stop nginx
+
 # Modify the nginx user to have appropriate permissions
-usermod -a -G adm nginx
+usermod -u 101 -d /usr/share/nginx -s /sbin/nologin nginx
 
 # Change ownership of necessary directories to the nginx user
 chown -R nginx:nginx /var/log/nginx
@@ -13,5 +16,5 @@ sed -i '/^\s*user /s/user .*/user nginx;/' /etc/nginx/nginx.conf
 sed -i '/^\s*listen /s/listen .*/listen 8080 default_server;/' /etc/nginx/nginx.conf
 
 # Start the nginx service
-service nginx start
+systemctl start nginx
 
