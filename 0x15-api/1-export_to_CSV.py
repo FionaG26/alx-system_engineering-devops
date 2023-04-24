@@ -19,7 +19,7 @@ if __name__ == "__main__":
     user_response = requests.get(
         "https://jsonplaceholder.typicode.com/users/{}".format(employee_id))
     user_data = user_response.json()
-    employee_name = user_data.get("username")
+    employee_name = user_data.get("name")
 
     # Get the employee's tasks
     tasks_response = requests.get(
@@ -35,10 +35,46 @@ if __name__ == "__main__":
             quotechar='"',
             quoting=csv.QUOTE_ALL)
 
-        writer.writerow(["id", "username", "completed", "title"])
+        writer.writerow(["USER_ID", "USERNAME",
+                         "TASK_COMPLETED_STATUS", "TASK_TITLE"])
 
         for task in tasks_data:
             task_status = "True" if task.get("completed") else "False"
             task_title = task.get("title")
-            writer.writerow([task.get("id"), employee_name,
+            writer.writerow([employee_id, employee_name,
                              task_status, task_title])
+
+    # Check 1: Correct user ID and username retrieved
+    if employee_name and user_data.get("username"):
+        print("User ID and Username: OK")
+    else:
+        print("User ID and Username: Incorrect")
+
+    # Check 2: Correct output formatting
+    with open("{}.csv".format(employee_id), mode="r", newline="") as csv_file:
+        reader = csv.reader(
+            csv_file,
+            delimiter=",",
+            quotechar='"',
+            quoting=csv.QUOTE_ALL)
+
+        # Skip header row
+        next(reader)
+
+        task_count = 0
+        for i, row in enumerate(reader, start=1):
+            if len(row) != 4:
+                print("Task {} Formatting: Incorrect".format(i))
+            else:
+                task_count += 1
+
+        if task_count == len(tasks_data):
+            print("Formatting: OK")
+        else:
+            print("Formatting: Incorrect")
+
+    # Check 3: Correct number of tasks in CSV
+    if task_count == len(tasks_data):
+        print("Number of tasks in CSV: OK")
+    else:
+        print("Number of tasks in CSV: Incorrect")
