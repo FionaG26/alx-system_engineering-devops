@@ -10,7 +10,14 @@ import sys
 if __name__ == "__main__":
     # API endpoint and user ID
     BASE_URL = "https://jsonplaceholder.typicode.com"
-    USER_ID = sys.argv[1]
+    try:
+        USER_ID = int(sys.argv[1])
+    except IndexError:
+        print("Usage: {} <user_id>".format(sys.argv[0]))
+        sys.exit(1)
+    except ValueError:
+        print("User ID must be an integer")
+        sys.exit(1)
 
     # Send request for user info
     user_response = requests.get(BASE_URL + "/users/" + str(USER_ID))
