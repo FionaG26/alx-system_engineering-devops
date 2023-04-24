@@ -10,7 +10,8 @@ from sys import argv
 if __name__ == "__main__":
     user_id = argv[1]
     user_url = "https://jsonplaceholder.typicode.com/users/{}".format(user_id)
-    todo_url = "https://jsonplaceholder.typicode.com/todos?userId={}".format(user_id)
+    todo_url = ("https://jsonplaceholder.typicode.com/todos?"
+                "userId={}".format(user_id))
 
     user_response = requests.get(user_url).json()
     todo_response = requests.get(todo_url).json()
