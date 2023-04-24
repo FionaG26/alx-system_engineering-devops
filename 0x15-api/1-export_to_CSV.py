@@ -19,7 +19,7 @@ if __name__ == "__main__":
     user_response = requests.get(
         "https://jsonplaceholder.typicode.com/users/{}".format(employee_id))
     user_data = user_response.json()
-    employee_name = user_data.get("name")
+    employee_name = user_data.get("username")
 
     # Get the employee's tasks
     tasks_response = requests.get(
@@ -35,8 +35,10 @@ if __name__ == "__main__":
             quotechar='"',
             quoting=csv.QUOTE_ALL)
 
+        writer.writerow(["id", "username", "completed", "title"])
+
         for task in tasks_data:
             task_status = "True" if task.get("completed") else "False"
             task_title = task.get("title")
-            writer.writerow([employee_id, employee_name,
-                            task_status, task_title])
+            writer.writerow([task.get("id"), employee_name,
+                             task_status, task_title])
