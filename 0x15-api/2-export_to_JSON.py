@@ -1,29 +1,36 @@
-#!/usr/bin/env python3
-
+#!/usr/bin/python3
+"""Using what you did in the task #0, extend your Python script
+to export data in the CSV format.
+"""
+import csv
 import json
 import requests
-import sys
+from sys import argv
 
-if len(sys.argv) != 2:
-    print("Usage: {} <employee_id>".format(sys.argv[0]))
-    sys.exit(1)
+if __name__ == "__main__":
+    try:
+        user_id = argv[1]
+        url = "https://jsonplaceholder.typicode.com/users/{}".format(user_id)
+        file_name = "{}.json".format(user_id)
+    except IndexError:
+        exit
 
-employee_id = sys.argv[1]
-response = requests.get("https://jsonplaceholder.typicode.com/todos?userId={}".format(employee_id))
-tasks = response.json()
+    res = requests.get(url)
+    res = res.json()
+    user_name = "{}".format(res.get('username'))
+    res = requests.get(url + "/todos")
+    res = res.json()
 
-user_response = requests.get("https://jsonplaceholder.typicode.com/users/{}".format(employee_id))
-user = user_response.json()
-username = user['username']
+    my_dict = {}
+    my_dict[user_id] = []
 
-data = {employee_id: []}
-for task in tasks:
-    data[employee_id].append({
-        'task': task['title'],
-        'completed': task['completed'],
-        'username': username
-    })
+    for task in res:
+        task_dict = {
+            "task": task.get('title'),
+            "completed": task.get('completed'),
+            "username": user_name
+        }
+        my_dict[user_id].append(task_dict)
 
-with open('{}.json'.format(employee_id), 'w') as f:
-    json.dump(data, f)
-
+    with open(file_name, "w") as f:
+        f.write(json.dumps(my_dict))
