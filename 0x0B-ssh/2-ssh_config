@@ -5,6 +5,7 @@ Host *
 
 Host school
   Hostname <124704-web-01>
+  Hostname <52.86.57.129>
   User <ubuntu>
   IdentityFile ~/.ssh/school
 EOF
