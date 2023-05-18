@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Nginx configuration file for AirBnB application server
+
+# Default server configuration
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name _;
+
+    root /var/www/html;
+
+    location / {
+        proxy_pass http://0.0.0.0:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location /airbnb-dynamic/number_odd_or_even/ {
+        proxy_pass http://0.0.0.0:5001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+
