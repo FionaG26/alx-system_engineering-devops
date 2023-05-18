@@ -1,0 +1,7 @@
+Only install gunicorn
+
+Create the WSGI Entry Point
+
+2-task
+
+Modify path  /etc/nginx/sites-available/default add new location.
