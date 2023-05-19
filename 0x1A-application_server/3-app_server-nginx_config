@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 # This script configures Nginx to proxy requests to the route /airbnb-dynamic/number_odd_or_even/(any integer)
-# to a Gunicorn instance listening on port 5001.
+# to a Gunicorn instance listening on port 5000
 
 server {
     listen 80;
-    server_name YOUR_PUBLIC_IP;
+    server_name _;
 
-    location / {
-        proxy_pass http://0.0.0.0:5000;
+    location /airbnb-onepage/ {
+        proxy_pass http://127.0.0.1:5000/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
 
-    location /airbnb-dynamic {
-        proxy_pass http://0.0.0.0:5001;
+    location /airbnb-dynamic/number_odd_or_even/ {
+        proxy_pass http://127.0.0.1:5001/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
