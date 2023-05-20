@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name your-domain.com;
+    server_name 52.3.248.176;
 
     location /api/ {
         proxy_pass http://localhost:5002;
