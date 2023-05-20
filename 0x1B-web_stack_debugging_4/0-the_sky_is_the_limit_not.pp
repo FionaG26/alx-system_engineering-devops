@@ -1,4 +1,3 @@
-# This Puppet manifest optimizes Nginx settings to handle high traffic
 # Install Nginx package
 package { 'nginx':
   ensure => 'installed',
@@ -12,25 +11,26 @@ file { '/etc/nginx/nginx.conf':
     # Example:
     worker_processes auto;
     events {
-      worker_connections 1024;
+      worker_connections 2000;
     }
     http {
-  include mime.types;
-  default_type application/octet-stream;
+      include mime.types;
+      default_type application/octet-stream;
 
-  sendfile on;
-  keepalive_timeout 65;
+      sendfile on;
+      keepalive_timeout 120;
 
-  server {
-    listen 80;
-    server_name localhost;
+      server {
+        listen 80;
+        server_name localhost;
 
-    location / {
-      root /path/to/your/web/root;
-      index index.html;
+        location / {
+          root /path/to/your/web/root;
+          index index.html;
+          keepalive_requests 100;
+        }
+      }
     }
-  }
-}
   ",
   notify  => Service['nginx'],
 }
@@ -41,3 +41,4 @@ service { 'nginx':
   enable    => true,
   subscribe => File['/etc/nginx/nginx.conf'],
 }
+
