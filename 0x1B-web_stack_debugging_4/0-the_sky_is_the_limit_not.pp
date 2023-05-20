@@ -1,4 +1,4 @@
-# Puppet manifest to install and configure Nginx server
+# This manuscript adjusts the web stack to handle 1000 requests with 100 at a time
 
 # Install Nginx package
 package { 'nginx':
@@ -13,14 +13,14 @@ file { '/etc/nginx/nginx.conf':
     # Example:
     worker_processes auto;
     events {
-      worker_connections 2000;
+      worker_connections 1000;
     }
     http {
       include mime.types;
       default_type application/octet-stream;
 
       sendfile on;
-      keepalive_timeout 120;
+      keepalive_timeout 65;
 
       server {
         listen 80;
@@ -43,4 +43,3 @@ service { 'nginx':
   enable    => true,
   subscribe => File['/etc/nginx/nginx.conf'],
 }
-
